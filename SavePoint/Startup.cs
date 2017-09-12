@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Import Necessary Libraries
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +18,8 @@ namespace SavePoint
 {
     public class Startup
     {
+        // Set startup configuration
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,23 +27,32 @@ namespace SavePoint
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Add and configure services
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<SavePointDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<SavePointDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
+            // Add lockout specifications for log in
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Lockout.MaxFailedAccessAttempts = 4;
+            });
+
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Configure HTML Requests
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

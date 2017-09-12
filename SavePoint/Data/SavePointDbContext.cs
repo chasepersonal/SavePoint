@@ -8,9 +8,9 @@ using SavePoint.Models;
 
 namespace SavePoint.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class SavePointDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public SavePointDbContext(DbContextOptions<SavePointDbContext> options)
             : base(options)
         {
         }
@@ -22,5 +22,7 @@ namespace SavePoint.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<SavePoint.Models.Games> Games { get; set; }
     }
 }
