@@ -79,10 +79,6 @@ namespace SavePoint.Controllers
                     _logger.LogInformation("User logged in.");
                     return RedirectToAction("Index", "Games");
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-                }
                 if (result.IsLockedOut)
                 {
                     //User will get warning if they have been locked out due to failed attempts
@@ -144,7 +140,7 @@ namespace SavePoint.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToAction("Index", "Games");
+                    return RedirectToAction("Create", "Games");
                 }
                 AddErrors(result);
             }
