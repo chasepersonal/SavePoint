@@ -5,11 +5,11 @@
     <div class="col-md-12 text-center">
         <h2>Not a member yet? Join Today!</h2>
         <p>There is no membership fee and all you need is an e-mail address!</p>
-        <p>@Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-default" })</p>
+        <p><a asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-default">Register</a></p>
     </div>
     <div class="col-md-12 text-center">
         <h2>Already a Member?</h2>
         <p>Log In to view your all of your saved games and add more!</p>
-        <p>@Html.ActionLink("Login", "Login", "Account", null, new { @class = "btn btn-default" })</p>
+        <p><a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-default">Login</a></p>
     </div>
 </div>

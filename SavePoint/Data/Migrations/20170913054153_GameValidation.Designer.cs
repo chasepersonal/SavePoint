@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SavePoint.Data;
-using SavePoint.Models;
 using System;
 
 namespace SavePoint.Data.Migrations
 {
     [DbContext(typeof(SavePointDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170913054153_GameValidation")]
+    partial class GameValidation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,20 +185,17 @@ namespace SavePoint.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comment")
-                        .HasMaxLength(300);
+                    b.Property<string>("Comment");
 
-                    b.Property<int>("Consoles");
-
-                    b.Property<int>("Genre");
+                    b.Property<string>("Console");
 
                     b.Property<int>("Rating");
 
                     b.Property<int>("ReleaseYear");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(60);
+                    b.Property<string>("Title");
+
+                    b.Property<string>("Type");
 
                     b.HasKey("ID");
 

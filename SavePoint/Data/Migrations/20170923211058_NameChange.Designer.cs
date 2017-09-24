@@ -12,9 +12,10 @@ using System;
 namespace SavePoint.Data.Migrations
 {
     [DbContext(typeof(SavePointDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170923211058_NameChange")]
+    partial class NameChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,8 +191,6 @@ namespace SavePoint.Data.Migrations
 
                     b.Property<int>("Consoles");
 
-                    b.Property<int>("Genre");
-
                     b.Property<int>("Rating");
 
                     b.Property<int>("ReleaseYear");
@@ -199,6 +198,8 @@ namespace SavePoint.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(60);
+
+                    b.Property<int>("Types");
 
                     b.HasKey("ID");
 

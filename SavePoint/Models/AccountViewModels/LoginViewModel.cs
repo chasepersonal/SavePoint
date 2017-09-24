@@ -8,6 +8,11 @@ namespace SavePoint.Models.AccountViewModels
 {
     public class LoginViewModel
     {
+
+        [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }

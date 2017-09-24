@@ -20,14 +20,18 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Console" class="control-label"></label>
-                <input asp-for="Console" class="form-control" />
-                <span asp-validation-for="Console" class="text-danger"></span>
+                <label asp-for="Consoles" class="control-label"></label>
+                <select required asp-for="Consoles" asp-items="Html.GetEnumSelectList<Consoles>()" class="form-control">
+                    <option value ="">SELECT</option>
+                </select>
+                <span asp-validation-for="Consoles" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <label asp-for="Genre" class="control-label"></label>
+                <select required asp-for="Genre" asp-items="Html.GetEnumSelectList<Genre>()" class="form-control">
+                    <option value="">SELECT</option>
+                </select>
+                <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ReleaseYear" class="control-label"></label>

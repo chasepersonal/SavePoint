@@ -58,8 +58,10 @@ namespace SavePoint.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Console,Type,ReleaseYear,Rating,Comment")] Games games)
+        public async Task<IActionResult> Create([Bind("ID,Title,Consoles,Genre,ReleaseYear,Rating,Comment")] Games games)
         {
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(games);
@@ -90,7 +92,7 @@ namespace SavePoint.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Console,Type,ReleaseYear,Rating,Comment")] Games games)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Consoles,Genre,ReleaseYear,Rating,Comment")] Games games)
         {
             if (id != games.ID)
             {
