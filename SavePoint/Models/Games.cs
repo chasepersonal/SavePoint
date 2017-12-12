@@ -11,6 +11,10 @@ namespace SavePoint.Models
 {
     public class Games
     {
+        // Retrive user ID for authorization purposes
+
+        public string OwnerID { get; set; }
+
         [Key]
         public int ID { get; set; }
 

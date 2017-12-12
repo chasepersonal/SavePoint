@@ -7,26 +7,44 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SavePoint.Data;
 using SavePoint.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
 namespace SavePoint.Controllers
 {
-    // Only allow authorized users access
-
-    [Authorize]
     public class GamesController : Controller
     {
+        // Access database context
+
         private readonly SavePointDbContext _context;
 
-        public GamesController(SavePointDbContext context)
+        // Import UserManager to validate current user
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        // Ctor to set all variables
+
+        public GamesController(SavePointDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Games
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Games.ToListAsync());
+
+            // Retrieve ID of current user from database
+
+            var currentUser = _userManager.GetUserId(User);
+
+            // Retrieve database data and match it to the current user
+
+            var games = _context.Games.Where(g => g.OwnerID == currentUser);
+
+            // Display data for curret user
+
+            return View(await games.ToListAsync());
         }
 
         // GET: Games/Details/5
@@ -64,6 +82,10 @@ namespace SavePoint.Controllers
 
             if (ModelState.IsValid)
             {
+                // Pull OwnerID and match to current logged in user
+                // This will ensure that games user creates will only be displayed
+
+                games.OwnerID = _userManager.GetUserId(User);
                 _context.Add(games);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

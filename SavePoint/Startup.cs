@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SavePoint.Data;
 using SavePoint.Models;
 using SavePoint.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SavePoint
 {
@@ -48,7 +51,13 @@ namespace SavePoint
 
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+            // Require Authenticated Users to access pages
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
         }
 
         // Configure HTML Requests

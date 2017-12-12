@@ -18,7 +18,6 @@ using SavePoint.Services;
 
 namespace SavePoint.Controllers
 {
-    [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
