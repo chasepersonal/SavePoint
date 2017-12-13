@@ -31,6 +31,7 @@ namespace SavePoint.Controllers
         }
 
         // GET: Games
+        [Authorize]
         public async Task<IActionResult> Index()
         {
 
@@ -83,7 +84,7 @@ namespace SavePoint.Controllers
             if (ModelState.IsValid)
             {
                 // Pull OwnerID and match to current logged in user
-                // This will ensure that games user creates will only be displayed
+                // This will ensure that games user creates will only be displayed on their Games List page
 
                 games.OwnerID = _userManager.GetUserId(User);
                 _context.Add(games);

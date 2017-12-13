@@ -26,14 +26,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SavePoint</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+
+                <a asp-area="" asp-controller="Home" asp-action="UserHome" class="navbar-brand">SavePoint</a>
+
+                }
+                else
+                {
+
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SavePoint</a>
+
+                }
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><a asp-area="" asp-controller="Home" asp-action="UserHome">Home</a></li>
+                    <li><a asp-area="" asp-controller="Manage" asp-action="Index">Manage</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Games" asp-action="Index">Games</a></li>
+                }
+                else
+                {
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Games" asp-action="Index">Games</a></li>
+
+                }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

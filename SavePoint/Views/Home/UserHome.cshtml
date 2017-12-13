@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1>Welcome to your account, @UserManager.GetUserName(User)!</h1>
+        <p>This is your Dashboard!</p>
+        <p>From here, you can easily do the following:</p>
+        <p>View your Game List</p>
+        <p>Add Games to your Game List</p>
+        <p>Manage your User Profile page</p>
+        <p>Or you can use the navigation bar at the top to do the same.</p>
+        <p>The choice is yours!</p>
+        <p><a asp-area="" asp-controller="Games" asp-action="Index" class="btn btn-default">View Games</a></p>
+        <p><a asp-area="" asp-controller="Games" asp-action="Create" class="btn btn-default">Add a Game</a></p>
+        <p><a asp-area="" asp-controller="Manage" asp-action="Index" class="btn btn-default">Manage User Profile</a></p>
+    </div>
+</div>
