@@ -164,8 +164,6 @@ namespace SavePoint.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<int>("UserId");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
@@ -203,6 +201,8 @@ namespace SavePoint.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(60);
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("ID");
 

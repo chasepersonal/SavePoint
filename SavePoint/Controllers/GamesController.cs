@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SavePoint.Data;
 using SavePoint.Models;
+using SavePoint.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace SavePoint.Controllers
 {
@@ -28,6 +30,7 @@ namespace SavePoint.Controllers
         {
             _context = context;
             _userManager = userManager;
+
         }
 
         // GET: Games
@@ -39,11 +42,9 @@ namespace SavePoint.Controllers
 
             var currentUser = _userManager.GetUserId(User);
 
-            // Retrieve database data and match it to the current user
+            // Display games only for the current user
 
-            var games = _context.Games.Where(g => g.OwnerID == currentUser);
-
-            // Display data for curret user
+            var games = _context.Games.Where(m => m.OwnerID == currentUser);
 
             return View(await games.ToListAsync());
         }
@@ -145,6 +146,11 @@ namespace SavePoint.Controllers
             return View(games);
         }
 
+        private bool GamesExists(int iD)
+        {
+            throw new NotImplementedException();
+        }
+
         // GET: Games/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -174,9 +180,30 @@ namespace SavePoint.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GamesExists(int id)
+        [HttpGet]
+        public IActionResult TitleAlreadyExists(string Title)
         {
-            return _context.Games.Any(e => e.ID == id);
+            // Retrieve ID of current user from database
+            // Will be used to ensure only user's games are part of the search
+
+            var currentUser = _userManager.GetUserId(User);
+
+            // Search user's database to see if Game Title already exists
+
+            var currentGameTitle = (from t in _context.Games where t.OwnerID == currentUser select new { Title }).FirstOrDefault();
+
+            // Return status value of Title
+            bool exists;
+
+            if (currentGameTitle != null)
+            {
+                exists = false;
+            }
+            else
+            {
+                exists = true;
+            }
+            return Json(data: exists);
         }
     }
 }

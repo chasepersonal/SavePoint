@@ -1,0 +1,23 @@
+#URL Environments
+pages:
+  root: https://localhost:44307/
+  user-home: https://localhost:44307/Home/UserHome
+  create: https://localhost:44307/Games/Create
+  profile: https://localhost:44307/Manage/Index
+  new_password: https://localhost:44307/Manage/ChangePassword
+
+#User Environments
+test-user:
+  username: SorryNotSorry
+  password: Y0uTry@ndD0Thi$
+  e-mail: somethingsomething@darkside.com
+  new_password:
+
+#Game Environments
+test-game:
+  title: The Breath of the Wild
+  console: Switch
+  genre: Action/Adventure
+  release_year: 2016
+  rating: 5
+  comment: Nintendo's version of Skyrim and it doesn't disappoint!

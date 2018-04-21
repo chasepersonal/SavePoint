@@ -1,13 +1,10 @@
 ﻿@model SavePoint.Models.Games
-
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Create</h2>
-
-<h4>Games</h4>
+<h2>Add a New Game</h2>
+<p><a asp-action="Index" class="btn btn-default">Return to Game List</a></p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -54,10 +51,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
 }

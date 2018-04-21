@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SavePoint.Data;
 using SavePoint.Models;
 using SavePoint.Services;
+using SavePoint.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,14 @@ namespace SavePoint
     {
         // Set startup configuration
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        private IHostingEnvironment Environment { get; }
 
         // Add and configure services
 
@@ -50,13 +53,7 @@ namespace SavePoint
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
-
-            // Require Authenticated Users to access pages
-            services.AddMvc(config =>
-            {
-                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
+            services.AddMvc();
 
         }
 
@@ -79,12 +76,7 @@ namespace SavePoint
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

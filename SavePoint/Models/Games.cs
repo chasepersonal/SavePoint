@@ -1,5 +1,6 @@
 ﻿// Import necessary libraries
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,11 @@ namespace SavePoint.Models
         [Key]
         public int ID { get; set; }
 
+        public string UserName { get; set; }
+
         [Required]
         [StringLength(60)]
+        [Remote("TitleAlreadyExists", "Games", ErrorMessage = "Game Title Already Exists")]
         public string Title { get; set; }
 
         [Display(Name = "Console")]
@@ -57,6 +61,8 @@ namespace SavePoint.Models
 
         [Display(Name = "Wii U")]
         WiiU,
+
+        Switch,
 
         GameBoy,
 

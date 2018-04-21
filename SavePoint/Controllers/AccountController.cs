@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using SavePoint.Models;
 using SavePoint.Models.AccountViewModels;
 using SavePoint.Services;
+using SavePoint.Authorization;
 
 namespace SavePoint.Controllers
 {
@@ -76,7 +77,7 @@ namespace SavePoint.Controllers
                     // User will be logged in upon succesfully entering log in information
 
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("Index", "Games");
+                    return RedirectToAction("UserHome", "Home");
                 }
                 if (result.IsLockedOut)
                 {
@@ -131,6 +132,7 @@ namespace SavePoint.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
