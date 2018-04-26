@@ -182,7 +182,7 @@ namespace SavePoint.Data.Migrations
 
             modelBuilder.Entity("SavePoint.Models.Games", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Comment")
@@ -191,8 +191,6 @@ namespace SavePoint.Data.Migrations
                     b.Property<int>("Consoles");
 
                     b.Property<int>("Genre");
-
-                    b.Property<string>("OwnerID");
 
                     b.Property<int>("Rating");
 

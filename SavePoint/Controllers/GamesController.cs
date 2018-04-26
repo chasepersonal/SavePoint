@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SavePoint.Data;
 using SavePoint.Models;
-using SavePoint.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
@@ -40,7 +39,7 @@ namespace SavePoint.Controllers
 
             // Retrieve ID of current user from database
 
-            var currentUser = _userManager.GetUserId(User);
+           var currentUser = _userManager.GetUserId(User);
 
             // Display games only for the current user
 
@@ -116,7 +115,7 @@ namespace SavePoint.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Consoles,Genre,ReleaseYear,Rating,Comment")] Games games)
+        public async Task<IActionResult> Edit(int? id, [Bind("ID,Title,Consoles,Genre,ReleaseYear,Rating,Comment")] Games games)
         {
             if (id != games.ID)
             {
@@ -172,38 +171,12 @@ namespace SavePoint.Controllers
         // POST: Games/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             var games = await _context.Games.SingleOrDefaultAsync(m => m.ID == id);
             _context.Games.Remove(games);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        [HttpGet]
-        public IActionResult TitleAlreadyExists(string Title)
-        {
-            // Retrieve ID of current user from database
-            // Will be used to ensure only user's games are part of the search
-
-            var currentUser = _userManager.GetUserId(User);
-
-            // Search user's database to see if Game Title already exists
-
-            var currentGameTitle = (from t in _context.Games where t.OwnerID == currentUser select new { Title }).FirstOrDefault();
-
-            // Return status value of Title
-            bool exists;
-
-            if (currentGameTitle != null)
-            {
-                exists = false;
-            }
-            else
-            {
-                exists = true;
-            }
-            return Json(data: exists);
         }
     }
 }

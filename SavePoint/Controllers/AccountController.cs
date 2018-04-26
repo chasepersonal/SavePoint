@@ -15,7 +15,6 @@ using Microsoft.Extensions.Options;
 using SavePoint.Models;
 using SavePoint.Models.AccountViewModels;
 using SavePoint.Services;
-using SavePoint.Authorization;
 
 namespace SavePoint.Controllers
 {

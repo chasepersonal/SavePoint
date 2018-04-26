@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<SavePoint.Models.Games>
 @using SavePoint.Models
-@using SavePoint.Authorization
-@using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
 
 @{
     ViewData["Title"] = "GamesList";
@@ -15,15 +12,6 @@
 <table class="table">
     <thead>
         <tr>
-            @if ((await AuthorizationService.AuthorizeAsync(
-            User, Model,
-            GameOperations.ViewUser)).Succeeded)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </th>
-            }
-            
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -49,14 +37,6 @@
         @foreach (var item in Model)
         {
         <tr>
-            @if ((await AuthorizationService.AuthorizeAsync(
-            User, item,
-            GameOperations.ViewUser)).Succeeded)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </th>
-            }
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

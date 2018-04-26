@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SavePoint.Data;
 using SavePoint.Models;
 using SavePoint.Services;
-using SavePoint.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
