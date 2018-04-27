@@ -1,7 +1,0 @@
-process.env.MONGO_ATLAS_PW
-
-{
-  "env": {
-    "MONGO_ATLAS_PW": "P0rcupin3Tr33"
-  }
-}
